@@ -69,6 +69,14 @@ app.use(fileUpload());
           const remove=await foods.deleteOne(query);
           res.json(remove)
         });
+
+        //<--------------- Add Students Data to Database ----------------->
+
+        app.post('/addStudent', async(req,res)=>{
+          const newStudent=req.body;
+          const result=await students.insertOne(newStudent);
+          res.json(result);
+        }); 
         
           /* //<------------ Find Blog Details ------------->
 
