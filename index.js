@@ -96,6 +96,19 @@ app.use(fileUpload());
           res.json(result);
         }); 
 
+        //<------------ Get Admin From Database ------------->
+
+        app.get('/user/:email',async(req,res)=>{
+          const email=req.params.email;
+          const query={email:email};
+         const getAdmin=await users.findOne(query);
+         let isAdmin=false
+         if(getAdmin?.role === 'admin'){
+           isAdmin=true;
+         }
+         res.json({admin:isAdmin})
+       }); 
+
 
         
           /* //<------------ Find Blog Details ------------->
@@ -112,18 +125,7 @@ app.use(fileUpload());
           res.json(result);
         }); 
 
-         //<------------ Get Admin Data From Database ------------->
-
-         app.get('/user/:email',async(req,res)=>{
-          const email=req.params.email;
-          const query={email:email};
-         const getAdmin=await users.findOne(query);
-         let isAdmin=false
-         if(getAdmin?.role === 'admin'){
-           isAdmin=true;
-         }
-         res.json({admin:isAdmin})
-       }); 
+         
 
     //<------------ Post a Blog ------------->
     
