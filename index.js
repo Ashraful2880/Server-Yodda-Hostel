@@ -32,15 +32,30 @@ app.use(fileUpload());
         //<------------ Get All Foods ------------->
 
         app.get('/foods',async(req,res)=>{
-          const getBlogs=await foods.find({}).toArray();
-          res.send(getBlogs)
+          const getFoods=await foods.find({}).toArray();
+          res.send(getFoods)
         }); 
 
          //<------------ Get All Students ------------->
 
         app.get('/students',async(req,res)=>{
-          const getPlace=await students.find({}).toArray();
-          res.send(getPlace)
+          const getStudents=await students.find({}).toArray();
+          res.send(getStudents)
+            /* const cursor = students.find({});
+            const page = req.query.page;
+            const size = parseInt(req.query.size);
+            const count = await cursor.count()
+            let stData;
+            if(page){
+              stData= await cursor.skip(page*size).limit(size).toArray();
+            }
+            else{
+              stData= await cursor.toArray();
+            }
+            res.send({
+              count,
+              students: stData
+            }) */
         });
 
         //<------------ Add New Foods Items By Admin ------------->
@@ -52,11 +67,7 @@ app.use(fileUpload());
           const picData=pic.data;
           const encodedPic=picData.toString('base64');
           const imageBuffer=Buffer.from(encodedPic,'base64');
-  
-          const newFood={
-            food, cost, image:imageBuffer
-          }
-          console.log(newFood);
+          const newFood={food, cost, image:imageBuffer}
           const result=await foods.insertOne(newFood);
           res.json(result); 
         })
@@ -118,28 +129,6 @@ app.use(fileUpload());
         const result=await users.updateOne(filter,updateAdmin);
         res.json(result);
       }); 
-
-  // Update Approve Status
-
-  /* app.put("/blogs/:id", async (req, res) => {
-    const id = req.params.id;
-    const updatedData = req.body;
-    const query = { _id: ObjectId(id) };
-    const options = { upsert: true };
-    const updateDoc = {
-      $set: {
-        status: updatedData.status,
-      },
-    };
-    const result = await blogs.updateOne(
-      query,
-      updateDoc,
-      options
-    );
-
-    res.json(result);
-  });
-   */
       } finally {
         // await client.close();
       }
