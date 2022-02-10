@@ -77,24 +77,14 @@ app.use(fileUpload());
           const result=await students.insertOne(newStudent);
           res.json(result);
         }); 
-        
-          /* //<------------ Find Blog Details ------------->
 
-          app.get('/details/:id',async(req,res)=>{
-            const id=req.params.id;
-            const query={_id:ObjectId(id)};
-            const getBlog=await foods.findOne(query);
-            res.json(getBlog);          
-          });
-
-        //<--------------- Send register User info to Database----------------->
+        //<--------------- Save register User info to Database----------------->
 
         app.post('/users', async(req,res)=>{
           const newUsers=req.body;
           const result=await users.insertOne(newUsers);
           res.json(result);
         });
-
          //<--------------- Update Google Sign User info to Database----------------->
 
          app.put('/users', async(req,res)=>{
@@ -106,6 +96,12 @@ app.use(fileUpload());
           res.json(result);
         }); 
 
+
+        
+          /* //<------------ Find Blog Details ------------->
+
+        
+        
         //<--------------- Update Admin Role to Database----------------->
 
         app.put('/users/admin', async(req,res)=>{
