@@ -109,58 +109,15 @@ app.use(fileUpload());
          res.json({admin:isAdmin})
        }); 
 
+       //<--------------- Set Admin Role API----------------->
 
-        
-          /* //<------------ Find Blog Details ------------->
-
-        
-        
-        //<--------------- Update Admin Role to Database----------------->
-
-        app.put('/users/admin', async(req,res)=>{
-          const user=req.body;
-          const filter={email:user.email}
-          const updateAdmin={$set:{role:'admin'}}
-          const result=await users.updateOne(filter,updateAdmin);
-          res.json(result);
-        }); 
-
-         
-
-    //<------------ Post a Blog ------------->
-    
-       app.post('/postBlog',async(req,res)=>{
-        const name=req.body.name;        
-        const description=req.body.description;        
-        const duration=req.body.duration;        
-        const cost=req.body.cost;        
-        const rating=req.body.rating;
-        const by=req.body.by;
-        const date=req.body.date;
-
-        const pic=req.files.url;
-        const picData=pic.data;
-        const encodedPic=picData.toString('base64');
-        const imageBuffer=Buffer.from(encodedPic,'base64');
-
-        const newBlog={
-          name, description, rating,duration,cost,by,date, url:imageBuffer
-        }
-        const result=await foods.insertOne(newBlog);
-        res.json(result); 
-      })
-
- //<------------ Delete a Blog From DB By Admin ------------>
-
-  app.delete('/deleteBlog/:id',async(req,res)=>{
-    const id=req.params.id;
-    const query={_id:ObjectId(id)}
-    const remove=await foods.deleteOne(query);
-    console.log(remove);
-    res.json("remove")
-  }); */
-
- 
+       app.put('/users/admin', async(req,res)=>{
+        const user=req.body;
+        const filter={email:user.email}
+        const updateAdmin={$set:{role:'admin'}}
+        const result=await users.updateOne(filter,updateAdmin);
+        res.json(result);
+      }); 
 
   // Update Approve Status
 
